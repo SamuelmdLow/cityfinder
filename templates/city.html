@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='style.css')}}">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+<body>
+
+<h1 class = "citytitle">
+    <span class="back" onclick="window.open('/');">←</span>
+    {{city[0]}}
+</h1>
+
+<content>
+    <list>
+        {% if image != "None" %}
+            <img style="height: 20vh; display: inline-block;" src="{{image}}">
+        {% endif %}
+        
+        <p>{{paragraph}}</p>
+        
+        {% if LATITUDE != "None" %}
+            <div id="map" style="width: 400px; height: 300px; margin-bottom: 1%"></div>
+            
+            <script type="text/javascript">
+                var myOptions = {
+                 zoom: 12,
+                 center: new google.maps.LatLng({{LATITUDE}}, {{LONGITUDE}}),
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                
+                var map = new google.maps.Map(document.getElementById("map"), myOptions);
+            </script>
+        {% endif %}
+        
+        <a href = "https://www.google.com/maps/search/?api=1&query={{city[0]}}%2C{{city[1]}}%2C{{city[2]}}">Google Maps</a>
+        
+        {% if pag != "None" %}
+            <a href = "{{wikipedia}}" style="display: inline-block;">Wikipedia Page</a>
+        {% endif %}
+    </list>
+    
+    <filter>
+        {% if flag != "None" %}
+            <img style="width:80%; display: inline-block;" src="{{flag}}">
+        {% endif %}
+        
+        <table style="border: solid;">
+            {% for info in city %}
+            <tr>
+                <td>{{types[loop.index0]}}</td>
+                <td>{{info}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </filter>
+</content>
+
+</body>
+</html>

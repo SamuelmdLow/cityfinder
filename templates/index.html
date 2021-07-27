@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City Finder</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <h1 class = "title">City Finder</h1>
+    <content>
+
+        <list>
+            <h3>Elegible Cities</h3>
+            {% for country in countries %}
+                <h5>{{country}}</h5>
+                {% for city in cities[loop.index0] %}
+                    <div style="display: inline-block">
+                        <a href="/city/{{city[1]}}"> {{city[0]}} </a>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </list>
+    
+        <filter>
+            
+            <h3 style="display: inline-block">Filters</h3>
+
+            <clickable onclick="addFilter()">+</clickable>
+            
+            <div id = "form">
+                <form name="add" action="#" method="post">
+                    
+                    <input type="radio" id="lowtemp" name="selection" value=3>
+                    <label for="lowtemp">Lowest Temperature (C°)</label><br>
+    
+                    <input type="radio" id="hightemp" name="selection" value=4>
+                    <label for="hightemp">Highest Temperature (C°)</label><br>
+    
+                    <input type="radio" id="avetemp" name="selection" value=5>
+                    <label for="avetemp">Average Temperature (C°)</label><br>
+                    
+                    <input type="radio" id="pop" name="selection" value=8>
+                    <label for="pop">Population</label><br>
+                    
+                    <input type="radio" id="unirank" name="selection" value=9>
+                    <label for="unirank">University Rank</label><br>
+                    
+                    <p>Lowest</p>
+                    <p><input type="number" name="low"/></p>
+                    
+                    <p>Highest</p>
+                    <p><input type="number" name="high"/></p>
+                    
+                    <p style="display: inline-block"><input type="submit" name="submit" value="submit"></p>
+                    <p style="display: inline-block"><input type="submit" name="cancel" value="cancel"></p>
+                </form>
+            </div>
+            
+            <listf>
+                {% for item in filters %}
+                    <li class="listf">
+                        {{item}}
+                        <form action="#" method="post">
+                            <input type="submit" name="remove" value="{{loop.index0}}🗑️" class="remove">
+                        </form>
+                    </li>
+                {% endfor %}
+            </listf>
+        </filter>
+    </content>
+
+<script>
+    function addFilter()
+    {
+        x = document.getElementById("form");
+        x.style.display = "block";
+    }
+</script>
+
+</body>
+</html>
