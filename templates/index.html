@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>City Finder</title>
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='style.css')}}">
+    <script src="{{ url_for('static', filename='website.js')}}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='cityfinder_icon.png')}}" type="image/gif" sizes="16x16">
+</head>
+<body>
+    <window>
+        <form method="post">
+            <input type="hidden" id="remove" name="remove" value="None">
+        </form>
+        
+        <title onclick="reset()">City Finder</title>
+        <content>
+            <list>
+                <h3>Elegible Cities</h3>
+                {% for catagory in catagories %}
+                    <h5>{{catagory}}</h5>
+                    {% for city in cities[loop.index0] %}
+                        <div style="display: inline-block">
+                            <a href="/city/{{city[1]}}"> {{city[0]}}</a>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div style="height: 50px">
+                
+                </div>
+            </list>
+        
+            <filter>
+ 
+                <h3 style="width: 100px; display: inline-block">Ranking</h3>
+    
+                <clickable onclick="document.getElementById('formR').style.display = 'block';">+</clickable>
+                
+                <div id = "formR">
+                    <input type="radio" id="lowtempR" name="selectionR" value=3 onclick="updateSelection('R');">
+                    <label for="lowtempR">Lowest Temperature</label><br>
+    
+                    <input type="radio" id="hightempR" name="selectionR" value=4 onclick="updateSelection('R');">
+                    <label for="hightempR">Highest Temperature</label><br>
+    
+                    <input type="radio" id="avetempR" name="selectionR" value=5 onclick="updateSelection('R');">
+                    <label for="avetempR">Average Temperature</label><br>
+                    
+                    <input type="radio" id="popR" name="selectionR" value=8 onclick="updateSelection('R');">
+                    <label for="popR">Population</label><br>
+                    
+                    <input type="radio" id="unirankR" name="selectionR" value=9 onclick="updateSelection('R');">
+                    <label for="unirankR">University Rank</label><br>
+                    
+                    <p id="num1labelR" >Ideal</p>
+                    <p><input type="number" id="num1R" name="num1R"/></p>
+                    
+                    <p id="num2labelR" >Weight</p>
+                    <p><input type="number" id="num2R" name="num2R"/></p>
+                    
+                    <clickable style="display: inline-block" onclick='updatePage1("R");'>submit</clickable>
+                    <clickable style="display: inline-block" onclick="document.getElementById('formR').style.display = 'none';">cancel</clickable>
+                </div>
+                
+                <listf>
+                    {% for item in rankings %}
+                        <li class="listf">
+                            {{item}}
+                        </li>
+                        <div class="remove" onclick="window.location.replace('/delete/{{code}}/R/{{loop.index0}}');">🗑️</div>
+                    {% endfor %}
+                </listf>
+                <br>
+                
+                <h3 style="width: 100px; display: inline-block">Filters</h3>
+    
+                <clickable onclick="document.getElementById('formF').style.display = 'block';">+</clickable>
+                
+                <div id = "formF">
+                    <input type="radio" id="lowtempF" name="selectionF" value=3 onclick="updateSelection('F');">
+                    <label for="lowtempF">Lowest Temperature</label><br>
+    
+                    <input type="radio" id="hightempF" name="selectionF" value=4 onclick="updateSelection('F');">
+                    <label for="hightempF">Highest Temperature</label><br>
+    
+                    <input type="radio" id="avetempF" name="selectionF" value=5 onclick="updateSelection('F');">
+                    <label for="avetempF">Average Temperature</label><br>
+                    
+                    <input type="radio" id="popF" name="selectionF" value=8 onclick="updateSelection('F');">
+                    <label for="popF">Population</label><br>
+                    
+                    <input type="radio" id="unirankF" name="selectionF" value=9 onclick="updateSelection('F');">
+                    <label for="unirankF">University Rank</label><br>
+                    
+                    <p id="num1labelF" >Lowest</p>
+                    <p><input type="number" id="num1F" name="num1F"/></p>
+                    
+                    <p id="num2labelF" >Highest</p>
+                    <p><input type="number" id="num2F" name="num2F"/></p>
+                    
+                    <clickable style="display: inline-block" onclick='updatePage1("F");'>submit</clickable>
+                    <clickable style="display: inline-block" onclick="document.getElementById('formF').style.display = 'none';">cancel</clickable>
+                </div>
+                
+                <listf>
+                    {% for item in filters %}
+                        <li class="listf">
+                            {{item}}
+                        </li>
+                        <div class="remove" onclick="window.location.replace('/delete/{{code}}/F/{{loop.index0}}');">🗑️</div>
+                    {% endfor %}
+                </listf>
+            </filter>
+        </content>
+    </window>
+</body>
+</html>
